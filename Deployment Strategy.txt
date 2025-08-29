@@ -1,38 +1,37 @@
-Deployment Strategy for Real-Time PII Defense
+Deployment Strategy for Real-Time PII Defense: Project Guardian 2.0
 
 1. Where It Fits
-Think of the PII Detector as a security control layer, just like a firewall or IDS/IPS, but instead of blocking malicious packets, it monitors and scrubs sensitive data (PII) before it leaks.
+     Think of the PII Detector as a security control layer, just like a firewall or IDS/IPS, but instead of blocking malicious packets, it monitors sensitive data (PII) before it leaks.
 
- Firewall: Blocks unauthorized network traffic.
- IDS/IPS: Detects and prevents intrusions.
- Guardian 2.0: Detects and prevents PII leaks in real-time.
+   Firewall: Blocks unauthorized network traffic.
+   IDS/IPS: Detects and prevents intrusions.
+   Guardian 2.0: Detects and prevents PII leaks in real-time.
 
 2. Deployment Options
 
- a) At the Network Perimeter (like a Next-Gen Firewall)
- Deploy Guardian 2.0 as a plugin/extension at the Web Application Firewall (WAF).
- All incoming/outgoing traffic flows through it.
- If it detects PII (e.g., phone numbers, Aadhaar, addresses), it redacts before logs/storage.
+   a) At the Network Perimeter (like a Next-Gen Firewall)
+        Deploy Guardian 2.0 as a plugin/extension at the Web Application Firewall (WAF).
+        All incoming/outgoing traffic flows through it.
+        If it detects PII (e.g., phone numbers, Aadhaar, addresses), it redacts before logs/storage.
 
- b) As an IDS/IPS Sensor (Internal Monitoring)
- Deploy Guardian 2.0 in an IDS.
- Works like an IDS sensor — scans logs, Kafka streams, or API responses.
- If it finds PII in unexpected places, it alerts Security Team + masks it in real time.
+   b) As an IDS/IPS Sensor (Internal Monitoring)
+        Deploy Guardian 2.0 in an IDS.
+        Works like an IDS sensor — scans logs, streams, or API responses.
+        If it finds PII in unexpected places, it alerts Security Team + masks it in real time.
 
 3. Recommended Strategy
-Use a layered defense (Defense-in-Depth) — the same way firewalls + IDS + IPS are layered:
+   Use a layered defense (Defense-in-Depth) — the same way firewalls + IDS + IPS are layered:
 
 1. Perimeter Defense (WAF/Firewall Integration):
-    Stop PII leaks at the ingress layer.
-    Example: Mask Aadhaar/UPI IDs before they enter logs.
+     Stop PII leaks at the ingress layer.
+     Example: Mask Aadhaar/UPI IDs before they enter logs.
 
 2. Internal Defense (IDS Mode):
-    Deploy Guardian as monitoring sensors across services.
-    Detect accidental PII storage in databases or logs.
+     Deploy Guardian as monitoring sensors across services.
+     Detect accidental PII storage in databases or logs.
 
 4.Benefits in Security Terms
-
- Low Latency: Works inline like IPS.
- Scalable: Like firewall clusters, Guardian scales horizontally.
- Cost-Effective: No need to rewrite every app — deploy at gateways.
- Compliance: Ensures logs/databases don’t store raw PII (GDPR, PCI-DSS, etc.).
+  Low Latency: Works inline like IPS.
+  Scalable: Like firewall clusters, Guardian scales horizontally.
+  Cost-Effective: No need to rewrite every app — deploy at gateways.
+  Compliance: Ensures logs/databases don’t store raw PII (GDPR, PCI-DSS, etc.).
